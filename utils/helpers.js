@@ -1,5 +1,5 @@
 
-getDecks() {
+getDecks(){
     // return all of the decks along with their titles, questions, and answers. 
 }
 

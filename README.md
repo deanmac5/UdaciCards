@@ -1,6 +1,7 @@
-# UdaciCards Project
+# Mobile FlashCards Project
 
-One Paragraph of project description goes here
+This is the final project from the React Nanodegree. It is a flashcard project and this iteration is 
+designed for iOS.
 
 ## Getting Started
 
