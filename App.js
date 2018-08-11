@@ -1,8 +1,10 @@
 import React from 'react';
 import { StyleSheet, StatusBar, View } from 'react-native';
 import DeckList from './components/decklist';
-import { blue } from './utils/colors'
+import DeckDetail from './components/deckdetail'
+import { blue, yellow, white } from './utils/colors'
 import { Constants } from 'expo'
+import { createStackNavigator } from 'react-navigation'
 
 
 function FlashStatusBar ({backgroundColor, ...props}) {
@@ -13,13 +15,38 @@ function FlashStatusBar ({backgroundColor, ...props}) {
   )
 }
 
+const MainNavigator = createStackNavigator({
+  Home: {
+    screen: DeckList,
+    navigationOptions: {
+      title: `Mobile FlashCards`,
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: blue,
+      }
+    }
+    
+  },
+  DeckDetail: {
+    screen: DeckDetail,
+
+    navigationOptions: {
+      title: `Mobile FlashCards`,
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: blue,
+      }
+    }
+  }
+})
+
 export default class App extends React.Component {
   
   render() {
     return (
       <View style={{flex: 1}}>
        <FlashStatusBar backgroundColor={ blue } barStyle="light-content" />
-      <DeckList />
+      <MainNavigator />
       </View>
     );
   }

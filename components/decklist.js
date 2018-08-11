@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
-import { red } from '../utils/colors'
+import { View, Text, TouchableOpacity } from 'react-native'
+import { red, grey } from '../utils/colors'
 import { getDecks } from '../utils/helpers'
-import Deck from './deck'
+import TextButton from './textbutton'
+
 
 class DeckList extends Component {
     state = {
@@ -11,6 +12,8 @@ class DeckList extends Component {
 
     componentDidMount() {
         this.getDeckList()
+        console.log(this.state)
+        console.log(this.props)
     }
 
     getDeckList = async () => {
@@ -18,9 +21,15 @@ class DeckList extends Component {
         this.setState({ decks: Object.values(decks) });
     };
 
-    onPress(){
-        console.log("Pressed")
+    test() {
+        console.log("Inside test")
     }
+
+    onClickPressed = (id, deck) => {
+        console.log("Click pressed " + id + deck.title)
+        this.props.navigation.navigate('DeckDetail', {id, deck})
+    }
+
 
     displayDecks() {
         const { decks } = this.state
@@ -37,14 +46,11 @@ class DeckList extends Component {
             return decks.map((deck) => {
                 return (
                     <View key={deck.title} style={styles.container}>
-                        <Deck
-                            title={deck.title}
-                            questions={deck.questions.length}
-                            onPress={this.onPress()}
-                            deck={deck}
-                        />
+                        <TextButton onPress={(id) => this.onClickPressed(id, deck)}>
+                            {deck.title} Deck 
+                        </TextButton>
+                        <Text style={styles.questions}>{deck.questions.length} Cards</Text>
                     </View>
-
                 )
             })
 
@@ -66,5 +72,9 @@ const styles = {
     error: {
         color: red,
 
+    },
+    questions: {
+        alignItems: 'center',
+        color: grey
     }
 }
