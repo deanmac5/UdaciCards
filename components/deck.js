@@ -1,14 +1,29 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, Button } from 'react-native'
+import { grey } from '../utils/colors'
 
-class DeckList extends Component {
-    render(){
+class Deck extends Component {
+
+    render() {
+        const { title, questions, deck } = this.props
+
         return (
             <View>
-                <Text>This is the deck</Text>
+                <Button
+                    title={title + " Deck"}
+                />
+
+                <Text style={styles.questions}>{questions} cards</Text>
             </View>
         )
     }
 }
 
 export default Deck
+
+const styles = {
+    questions: {
+        alignItems: 'center',
+        color: grey
+    }
+}
