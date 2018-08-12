@@ -54,6 +54,7 @@ class Quiz extends Component {
 
         return (
             <View>
+                <Text>Question {this.state.cardNumber + 1} / {this.state.cards.length}</Text>
                 <Text>{card.question}</Text>
                 <TextButton onPress={()=> this.toggleAnswer()}>
                    {displayAnswerText}
