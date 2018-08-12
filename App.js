@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, StatusBar, View } from 'react-native';
 import DeckList from './components/decklist';
 import DeckDetail from './components/deckdetail'
+import Quiz from './components/quiz'
+import AddCard from './components/addcard'
 import { blue, yellow, white } from './utils/colors'
 import { Constants } from 'expo'
 import { createStackNavigator } from 'react-navigation'
@@ -37,6 +39,28 @@ const MainNavigator = createStackNavigator({
         backgroundColor: blue,
       }
     }
+  },
+  Quiz: {
+    screen: Quiz,
+
+    // navigationOptions: {
+    //   title: `Mobile FlashCards`,
+    //   headerTintColor: white,
+    //   headerStyle: {
+    //     backgroundColor: blue,
+    //   }
+    // }
+  },
+  Add: {
+    screen: AddCard,
+
+    // navigationOptions: {
+    //   title: `Mobile FlashCards`,
+    //   headerTintColor: white,
+    //   headerStyle: {
+    //     backgroundColor: blue,
+    //   }
+    // }
   }
 })
 

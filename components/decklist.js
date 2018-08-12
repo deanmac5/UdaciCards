@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
-import { red, grey } from '../utils/colors'
+import { red, grey, white } from '../utils/colors'
 import { getDecks } from '../utils/helpers'
 import TextButton from './textbutton'
 
@@ -21,8 +21,8 @@ class DeckList extends Component {
         this.setState({ decks: Object.values(decks) });
     };
 
-    onClickPressed = (id, deck) => {
-        console.log("Click pressed " + id + deck.title)
+    onClickPressed = (deck) => {
+        console.log("Click pressed " + deck.title)
         this.props.navigation.navigate('DeckDetail', {deck: deck})
     }
 
@@ -41,11 +41,11 @@ class DeckList extends Component {
         else {
             return decks.map((deck) => {
                 return (
-                    <View key={deck.title} style={styles.container}>
-                        <TextButton onPress={(id) => this.onClickPressed(id, deck)}>
+                    <View key={deck.title} style={styles.item} >
+                        <TextButton  style={{fontSize: 22}}onPress={() => this.onClickPressed(deck)}>
                             {deck.title} Deck 
                         </TextButton>
-                        <Text style={styles.questions}>{deck.questions.length} Cards</Text>
+                        <Text style={{color: grey}}>{deck.questions.length} Cards</Text>
                     </View>
                 )
             })
@@ -60,11 +60,6 @@ class DeckList extends Component {
 export default DeckList
 
 const styles = {
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
     error: {
         color: red,
 
@@ -72,5 +67,21 @@ const styles = {
     questions: {
         alignItems: 'center',
         color: grey
-    }
+    },
+    item: {
+        backgroundColor: white,
+        borderRadius: Platform.OS === 'ios' ? 16 : 2,
+        padding: 20,
+        marginLeft: 10,
+        marginRight: 10,
+        marginTop: 17,
+        justifyContent: 'center',
+        shadowRadius: 3,
+        shadowColor: 'rgba(0,0,0,0.24)',
+        shadowOffset: {
+            width: 0,
+            height: 3,
+
+        }
+    },
 }
