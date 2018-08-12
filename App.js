@@ -4,9 +4,10 @@ import DeckList from './components/decklist';
 import DeckDetail from './components/deckdetail'
 import Quiz from './components/quiz'
 import AddCard from './components/addcard'
-import { blue, yellow, white } from './utils/colors'
+import { blue, white } from './utils/colors'
 import { Constants } from 'expo'
 import { createStackNavigator } from 'react-navigation'
+import { wipeData } from './utils/helpers';
 
 
 function FlashStatusBar ({backgroundColor, ...props}) {
@@ -65,6 +66,10 @@ const MainNavigator = createStackNavigator({
 })
 
 export default class App extends React.Component {
+
+  componentDidMount(){
+    wipeData() // for dev purposes only, remove before deploying to AppStore
+  }
   
   render() {
     return (
