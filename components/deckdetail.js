@@ -2,17 +2,14 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
 class DeckDetail extends Component {
-
-    componentDidMount() {
-        console.log("DD props: " + this.props.navigation.params)
-    }
     
     render(){
-        const {id, deck} = this.props
+        const { deck } = this.props.navigation.state.params
 
         return (
             <View>
-                <Text>This is the add deck detail view: {id} </Text>
+                <Text>{deck.title} </Text>
+                <Text>{deck.questions.length} </Text>
             </View>
         )
     }

@@ -21,13 +21,9 @@ class DeckList extends Component {
         this.setState({ decks: Object.values(decks) });
     };
 
-    test() {
-        console.log("Inside test")
-    }
-
     onClickPressed = (id, deck) => {
         console.log("Click pressed " + id + deck.title)
-        this.props.navigation.navigate('DeckDetail', {id, deck})
+        this.props.navigation.navigate('DeckDetail', {deck: deck})
     }
 
 
