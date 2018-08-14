@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, Button } from 'react-native'
 import TextButton from './textbutton'
-import { pink, grey, white, green, red } from '../utils/colors'
+import { pink, grey, white, green, red, black } from '../utils/colors'
 import { Ionicons } from '@expo/vector-icons'
 
 class Quiz extends Component {
@@ -47,9 +47,11 @@ class Quiz extends Component {
         if (this.state.finished) {
             const correct = this.state.cards.filter(c => c.correct)
             return (
-                <View>
-                    <Text>This quiz is complete</Text>
-                    <Text>you scored {correct.length} out of {this.state.cards.length}</Text>
+                <View style={styles.resultContainer}>
+                    <Text style={styles.resultText}>You have completed the quiz.</Text>
+                    <Text style={styles.resultText}>Your score is: </Text>
+                    <Text style={styles.resultEmText}>{correct.length} </Text>
+                    <Text style={styles.resultText}>out of {this.state.cards.length}</Text>
                 </View>
             )
         }
@@ -113,10 +115,19 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         padding: 50,
         justifyContent: 'space-between'
-
-        // backgroundColor: pink
     },
-    answerBtn: {
-        // backgroundColor: green,
+    resultContainer: {
+        flex: 1,
+        backgroundColor: white,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    resultText: {
+        color: black,
+        fontSize: 24
+    },
+    resultEmText: {
+        color: green,
+        fontSize: 40
     }
 })
