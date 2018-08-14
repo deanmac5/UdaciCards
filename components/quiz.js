@@ -68,6 +68,7 @@ class Quiz extends Component {
                             name='ios-close-circle-outline'
                             color={red}
                             size={80}
+                            onPress={() => this.handleAnswer(false)}
                         />
                         <TextButton onPress={() => this.handleAnswer(false)}>Incorrect</TextButton>
                     </View>
@@ -78,6 +79,7 @@ class Quiz extends Component {
                             name='ios-checkmark-circle-outline'
                             color={green}
                             size={80}
+                            onPress={() => this.handleAnswer(true)}></Ionicons>
                         />
                         <TextButton onPress={() => this.handleAnswer(true)}>Correct</TextButton>
                     </View>
