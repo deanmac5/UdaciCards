@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, Button } from 'react-native'
 import { red, grey, white } from '../utils/colors'
 import { getDecks } from '../utils/helpers'
-import TextButton from './textbutton'
+
 
 
 class DeckList extends Component {
@@ -23,7 +23,7 @@ class DeckList extends Component {
 
     onClickPressed = (deck) => {
         console.log("Click pressed " + deck.title)
-        this.props.navigation.navigate('DeckDetail', {deck: deck})
+        this.props.navigation.navigate('DeckDetail', { deck: deck })
     }
 
 
@@ -42,10 +42,10 @@ class DeckList extends Component {
             return decks.map((deck) => {
                 return (
                     <View key={deck.title} style={styles.item} >
-                        <TextButton  style={{fontSize: 22}}onPress={() => this.onClickPressed(deck)}>
-                            {deck.title} Deck 
-                        </TextButton>
-                        <Text style={{color: grey}}>{deck.questions.length} Cards</Text>
+                        <Button style={{ fontSize: 22 }} onPress={() => this.onClickPressed(deck)}
+                            title={deck.title}
+                        />
+                        <Text style={{ color: grey, textAlign: 'right' }}>{deck.questions.length} Cards</Text>
                     </View>
                 )
             })

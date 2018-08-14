@@ -1,9 +1,16 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Button } from 'react-native'
 import { white, green } from '../utils/colors'
 import TextButton from './textbutton'
 
 class DeckDetail extends Component {
+
+    static navigationOptions = ({ navigation }) => {
+        const { deck } = navigation.state.params
+        return {
+            title: `${deck.title} Deck`
+        }
+    }
 
 
     render() {
@@ -11,16 +18,18 @@ class DeckDetail extends Component {
 
         return (
             <View style={styles.container}>
-                <Text>{deck.title} </Text>
-                <Text>{deck.questions.length} </Text>
-            
-                <TextButton style={styles.iosSubmit} onPress={() => this.props.navigation.navigate('Quiz',{deck: deck})}>
-                    Start Quiz
-                </TextButton>
-
-                <TextButton style={{ fontSize: 20 }} onPress={() => this.props.navigation.navigate('Add',{deck: deck})}>
-                    Add Card
-                </TextButton>
+                
+                <Text style={{fontSize: 18}}>This card has {deck.questions.length} card(s). </Text>
+                <View style={styles.container}>
+                <Button onPress={() => this.props.navigation.navigate('Quiz', { deck: deck })}
+                    title='Start Quiz'
+                />
+                 
+                <Button onPress={() => this.props.navigation.navigate('Add', { deck: deck })}
+                    title='Add Card'
+                />
+                </View>
+                
             </View>
         )
     }
@@ -36,27 +45,10 @@ const styles = StyleSheet.create({
     },
     center: {
         flex: 1,
-        justifyContent: 'center',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
         alignItems: 'center',
-        marginLeft: 30,
-        marginRight: 30
-    },
-    row: {
-        flexDirection: 'row',
-        flex: 1,
-        alignItems: 'center'
-    },
-    iosSubmit: {
-        backgroundColor: green,
-        padding: 10,
-        borderRadius: 7,
-        height: 45,
-        marginLeft: 40,
-        marginRight: 40
-    },
-    submitBtnText: {
-        color: white,
-        fontSize: 22,
-        textAlign: 'center'
+        marginTop: 30,
+
     }
 });

@@ -4,13 +4,14 @@ import DeckList from './components/decklist';
 import DeckDetail from './components/deckdetail'
 import Quiz from './components/quiz'
 import AddCard from './components/addcard'
-import { blue, white } from './utils/colors'
+import AddDeck from './components/adddeck'
+import { blue, white} from './utils/colors'
 import { Constants } from 'expo'
-import { createStackNavigator } from 'react-navigation'
+import { createStackNavigator, createBottomTabNavigator } from 'react-navigation'
 import { wipeData } from './utils/helpers';
 
 
-function FlashStatusBar ({backgroundColor, ...props}) {
+function FlashStatusBar({ backgroundColor, ...props }) {
   return (
     <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
       <StatusBar translucent backgroundColor={backgroundColor} {...props} />
@@ -18,8 +19,9 @@ function FlashStatusBar ({backgroundColor, ...props}) {
   )
 }
 
-const MainNavigator = createStackNavigator({
-  Home: {
+
+const DeckListNavigator = createStackNavigator({
+  DeckList: {
     screen: DeckList,
     navigationOptions: {
       title: `Mobile FlashCards`,
@@ -28,13 +30,10 @@ const MainNavigator = createStackNavigator({
         backgroundColor: blue,
       }
     }
-    
   },
   DeckDetail: {
     screen: DeckDetail,
-
     navigationOptions: {
-      title: `Mobile FlashCards`,
       headerTintColor: white,
       headerStyle: {
         backgroundColor: blue,
@@ -43,39 +42,56 @@ const MainNavigator = createStackNavigator({
   },
   Quiz: {
     screen: Quiz,
-
-    // navigationOptions: {
-    //   title: `Mobile FlashCards`,
-    //   headerTintColor: white,
-    //   headerStyle: {
-    //     backgroundColor: blue,
-    //   }
-    // }
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: blue,
+      }
+    }
   },
   Add: {
     screen: AddCard,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: blue,
+      }
+    }
+  },
+})
 
-    // navigationOptions: {
-    //   title: `Mobile FlashCards`,
-    //   headerTintColor: white,
-    //   headerStyle: {
-    //     backgroundColor: blue,
-    //   }
-    // }
+const AddDeckNavigator = createStackNavigator({
+  'Add Decks': {
+    screen: AddDeck,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: blue,
+      }
+    }
+  }
+})
+
+const Tabs = createBottomTabNavigator({
+  'Home': {
+    screen: DeckListNavigator
+  },
+  'Add Deck': {
+    screen: AddDeckNavigator,
   }
 })
 
 export default class App extends React.Component {
 
-  componentDidMount(){
+  componentDidMount() {
     wipeData() // for dev purposes only, remove before deploying to AppStore
   }
-  
+
   render() {
     return (
-      <View style={{flex: 1}}>
-       <FlashStatusBar backgroundColor={ blue } barStyle="light-content" />
-      <MainNavigator />
+      <View style={styles.container}>
+        <FlashStatusBar backgroundColor={blue} barStyle="light-content" />
+        <Tabs />
       </View>
     );
   }
@@ -84,8 +100,5 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });

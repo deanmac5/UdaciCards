@@ -14,10 +14,10 @@ export const getDecks = async () => {
 }
 
 // getDeck: take in a single id argument and return the deck associated with that id.
-export const getDeck = async id => {
+export const getDeck = async (id) => {
     const jsonData = await AsyncStorage.getItem(CARD_KEY)
     const data = JSON.parse(jsonData)
-    return data
+    return data[id]
 }
 
 // saveDeckTitle: take in a single title argument and add it to the decks.
