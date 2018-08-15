@@ -83,8 +83,8 @@ const Tabs = createBottomTabNavigator({
 
 export default class App extends React.Component {
 
-  componentDidMount() {
-    wipeData() // for dev purposes only, remove before deploying to AppStore
+  async componentDidMount() {
+    await wipeData() // for dev purposes only, remove before deploying to AppStore
   }
 
   render() {

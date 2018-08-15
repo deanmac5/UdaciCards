@@ -14,34 +14,51 @@ export const getDecks = async () => {
 }
 
 // getDeck: take in a single id argument and return the deck associated with that id.
-export const getDeck = async (id) => {
+export const getDeck = async title => {
+    
     const jsonData = await AsyncStorage.getItem(CARD_KEY)
     const data = JSON.parse(jsonData)
-    return data[id]
+    return data[title]
 }
 
 // saveDeckTitle: take in a single title argument and add it to the decks.
 export const saveDeckTitle = async title => {
+    let jsonData = await AsyncStorage.getItem(CARD_KEY);
+
+    const appData = JSON.parse(jsonData);
+    const newData = {
+        ...appData,
+        [title]: {
+            title: title,
+            questions: [],
+        },
+    };
+
+    await AsyncStorage.setItem(CARD_KEY, JSON.stringify(newData));
 }
 
 // addCardToDeck: take in two arguments, title and card, and will add the card to
 // the list of questions for the deck with the associated title.
 export const addCardToDeck = async (title, card) => {
-    const jsonData = await AsyncStorage.getItem(CARD_KEY)
-    const data = JSON.parse(jsonData)
-    const deck = data[title]
-    let updateQuestions = deck.questions
-    updateQuestions.push(card)
+    
+    let jsonData =  await AsyncStorage.getItem(CARD_KEY)
+  
+    const existingData = JSON.parse(jsonData)
+    console.log("data == " + existingData)
+    const deck = existingData[title]
+    console.log("deck == " + Object.values(deck))
+    let questions = deck.questions
+    questions.push(card)
 
     const updatedData = {
-        ...data,
+        ...existingData,
         [deck.title]: {
             ...deck,
-            updateQuestions,
+            questions,
         }
     }
-    await AsyncStorage.setItem(CARD_KEY, JSON.stringify(updatedData))
-
+    console.log(updatedData)
+    AsyncStorage.setItem(CARD_KEY, JSON.stringify(updatedData))
 }
 
 export const wipeData = async() => {
