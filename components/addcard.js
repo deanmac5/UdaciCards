@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, TextInput, StyleSheet, Button } from 'react-native'
 import { addCardToDeck, getDeck, getDecks } from '../utils/helpers'
 import { white } from '../utils/colors'
-import { callTest, callTest1 } from '../utils/test'
+
 
 class AddCard extends Component {
 

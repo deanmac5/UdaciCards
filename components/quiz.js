@@ -55,10 +55,10 @@ class Quiz extends Component {
         clearLocalNotification()
             .then(setLocalNotification)
         this.props.navigation.navigate('DeckList')
-        
+
     }
 
-    
+
 
     render() {
         const card = this.state.cards[this.state.cardNumber]
@@ -67,15 +67,15 @@ class Quiz extends Component {
         if (this.state.finished) {
             const correct = this.state.cards.filter(c => c.correct)
             return (
-                <View>
-                    <View style={styles.resultContainer}>
+                <View style={styles.resultContainer}>
+                    <View>
                         <Text style={styles.resultText}>You have completed the quiz.</Text>
                         <Text style={styles.resultText}>Your score is: </Text>
                         <Text style={styles.resultEmText}>{correct.length} </Text>
                         <Text style={styles.resultText}>out of {this.state.cards.length}</Text>
                     </View>
                     <View>
-                        <Button onPress={(e) =>this.handleRestart(e)} title="Restart this quiz" />
+                        <Button onPress={(e) => this.handleRestart(e)} title="Restart this quiz" />
                         <Button onPress={(e) => this.handleGoHome(e)} title="Go back to list" />
                     </View>
                 </View>
@@ -146,14 +146,17 @@ export const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: white,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        
     },
     resultText: {
         color: black,
-        fontSize: 24
+        fontSize: 24,
+        textAlign: 'center'
     },
     resultEmText: {
         color: green,
-        fontSize: 40
+        fontSize: 40,
+        textAlign: 'center'
     }
 })
