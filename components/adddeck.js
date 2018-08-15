@@ -46,7 +46,7 @@ class AddDeck extends Component {
                 </View>
                 <View>
                     <Button onPress={() => this.saveNewDeck()}
-                        title='Submit'
+                        title='Create Deck'
                     />
                 </View>
             </View>

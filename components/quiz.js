@@ -40,6 +40,19 @@ class Quiz extends Component {
         }
     }
 
+    handleRestart(e) {
+        e.preventDefault()
+        this.setState({
+            finished: false,
+            cardNumber: 0
+        })
+    }
+
+    handleGoHome(e) {
+        e.preventDefault()
+        this.props.navigation.navigate('Home')
+    }
+
     render() {
         const card = this.state.cards[this.state.cardNumber]
         const displayAnswerText = this.state.displayAnswer ? card.answer : 'Show Answer'
@@ -47,11 +60,17 @@ class Quiz extends Component {
         if (this.state.finished) {
             const correct = this.state.cards.filter(c => c.correct)
             return (
-                <View style={styles.resultContainer}>
-                    <Text style={styles.resultText}>You have completed the quiz.</Text>
-                    <Text style={styles.resultText}>Your score is: </Text>
-                    <Text style={styles.resultEmText}>{correct.length} </Text>
-                    <Text style={styles.resultText}>out of {this.state.cards.length}</Text>
+                <View>
+                    <View style={styles.resultContainer}>
+                        <Text style={styles.resultText}>You have completed the quiz.</Text>
+                        <Text style={styles.resultText}>Your score is: </Text>
+                        <Text style={styles.resultEmText}>{correct.length} </Text>
+                        <Text style={styles.resultText}>out of {this.state.cards.length}</Text>
+                    </View>
+                    <View>
+                        <Button onPress={(e) =>this.handleRestart(e)} title="Restart this quiz" />
+                        {/* <Button onPress={(e) => this.handleGoHome(e)} title="Go back to list" /> */}
+                    </View>
                 </View>
             )
         }
@@ -64,7 +83,7 @@ class Quiz extends Component {
                     title={displayAnswerText}
                 />
                 <View style={styles.answerContainer}>
-               
+
                     <View style={[styles.iconContainer]}>
                         <Ionicons
                             name='ios-close-circle-outline'
@@ -74,9 +93,9 @@ class Quiz extends Component {
                         />
                         <TextButton onPress={() => this.handleAnswer(false)}>Incorrect</TextButton>
                     </View>
-                    
 
-                     <View style={[styles.iconContainer]}>
+
+                    <View style={[styles.iconContainer]}>
                         <Ionicons
                             name='ios-checkmark-circle-outline'
                             color={green}
@@ -85,7 +104,7 @@ class Quiz extends Component {
                         />
                         <TextButton onPress={() => this.handleAnswer(true)}>Correct</TextButton>
                     </View>
-                    
+
                 </View>
             </View>
         )
@@ -109,7 +128,7 @@ export const styles = StyleSheet.create({
     question: {
         color: pink,
         fontSize: 30,
-        textAlign: 'center',    
+        textAlign: 'center',
     },
     answerContainer: {
         flexDirection: 'row',

@@ -10,14 +10,10 @@ class DeckList extends Component {
         decks: []
     }
 
+    
     componentDidMount() {
-        this.getDeckList()
-        console.log(this.state)
-        console.log(this.props)
-    }
-
-    componentDidUpdate() {
-        this.getDeckList()
+        this.props.navigation.addListener('willFocus', () => this.getDeckList())
+        // this removes problem with componentDidUpdate constantly reloading
     }
 
     getDeckList = async () => {
