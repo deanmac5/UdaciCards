@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Button } from 'react-native'
 import TextButton from './textbutton'
 import { pink, grey, white, green, red, black } from '../utils/colors'
 import { Ionicons } from '@expo/vector-icons'
+import DeckList from './decklist';
 
 class Quiz extends Component {
     constructor(props) {
@@ -50,7 +51,7 @@ class Quiz extends Component {
 
     handleGoHome(e) {
         e.preventDefault()
-        this.props.navigation.navigate('Home')
+        this.props.navigation.navigate('DeckList')
     }
 
     render() {
@@ -69,7 +70,7 @@ class Quiz extends Component {
                     </View>
                     <View>
                         <Button onPress={(e) =>this.handleRestart(e)} title="Restart this quiz" />
-                        {/* <Button onPress={(e) => this.handleGoHome(e)} title="Go back to list" /> */}
+                        <Button onPress={(e) => this.handleGoHome(e)} title="Go back to list" />
                     </View>
                 </View>
             )
