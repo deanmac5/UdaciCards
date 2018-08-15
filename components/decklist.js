@@ -16,6 +16,10 @@ class DeckList extends Component {
         console.log(this.props)
     }
 
+    componentDidUpdate() {
+        this.getDeckList()
+    }
+
     getDeckList = async () => {
         const decks = await getDecks();
         this.setState({ decks: Object.values(decks) });

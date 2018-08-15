@@ -22,19 +22,21 @@ export const getDeck = async title => {
 }
 
 // saveDeckTitle: take in a single title argument and add it to the decks.
-export const saveDeckTitle = async title => {
+export const saveDeckTitle = async newTitle => {
+    console.log("passed title is " + newTitle)
     let jsonData = await AsyncStorage.getItem(CARD_KEY);
 
-    const appData = JSON.parse(jsonData);
-    const newData = {
-        ...appData,
-        [title]: {
-            title: title,
+    const existingData = JSON.parse(jsonData);
+    const updatedData = {
+        ...existingData,
+        [newTitle]: {
+            title: newTitle,
             questions: [],
         },
     };
-
-    await AsyncStorage.setItem(CARD_KEY, JSON.stringify(newData));
+    console.log("updated is " + Object.values(updatedData[newTitle]))
+    console.log("updated length is " + updatedData[newTitle].questions.length)
+    await AsyncStorage.setItem(CARD_KEY, JSON.stringify(updatedData));
 }
 
 // addCardToDeck: take in two arguments, title and card, and will add the card to

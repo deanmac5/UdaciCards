@@ -17,16 +17,20 @@ class AddDeck extends Component {
         }
     }
 
-    async saveNewDeck(navigation) {
-        console.log("new deck created")
+    async saveNewDeck() {
+        const { navigate } = this.props.navigation
+        console.log("new deck created " + this.state.newTitle)
         await saveDeckTitle(this.state.newTitle)
-        const deck = await getDeck(title)
+        const deck = await getDeck(this.state.newTitle)
         console.log('added deck is ' + deck)
-        navigation.navigate('DeckDetail')
+        this.setState({
+            newTitle: ""
+        })
+        navigate('DeckDetail', { deck: deck })
     }
 
     render() {
-        const { navigation } = this.props
+        
         return (
             <View style={styles.container}>
                 <View style={styles.inputContainer}> 
@@ -41,7 +45,7 @@ class AddDeck extends Component {
                     />
                 </View>
                 <View>
-                    <Button onPress={() => this.saveNewDeck(navigation)}
+                    <Button onPress={() => this.saveNewDeck()}
                         title='Submit'
                     />
                 </View>
