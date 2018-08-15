@@ -3,7 +3,8 @@ import { View, Text, StyleSheet, Button } from 'react-native'
 import TextButton from './textbutton'
 import { pink, grey, white, green, red, black } from '../utils/colors'
 import { Ionicons } from '@expo/vector-icons'
-import DeckList from './decklist';
+import { setLocalNotification, clearLocalNotification } from '../utils/helpers'
+
 
 class Quiz extends Component {
     constructor(props) {
@@ -51,8 +52,13 @@ class Quiz extends Component {
 
     handleGoHome(e) {
         e.preventDefault()
+        clearLocalNotification()
+            .then(setLocalNotification)
         this.props.navigation.navigate('DeckList')
+        
     }
+
+    
 
     render() {
         const card = this.state.cards[this.state.cardNumber]

@@ -8,7 +8,7 @@ import AddDeck from './components/adddeck'
 import { blue, white} from './utils/colors'
 import { Constants } from 'expo'
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation'
-import { wipeData } from './utils/helpers';
+import { wipeData, setLocalNotification } from './utils/helpers';
 
 
 function FlashStatusBar({ backgroundColor, ...props }) {
@@ -85,6 +85,7 @@ export default class App extends React.Component {
 
   async componentDidMount() {
     await wipeData() // for dev purposes only, remove before deploying to AppStore
+    setLocalNotification()
   }
 
   render() {
