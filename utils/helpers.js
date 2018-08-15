@@ -17,7 +17,7 @@ export const getDecks = async () => {
 
 // getDeck: take in a single id argument and return the deck associated with that id.
 export const getDeck = async title => {
-    
+
     const jsonData = await AsyncStorage.getItem(CARD_KEY)
     const data = JSON.parse(jsonData)
     return data[title]
@@ -25,7 +25,7 @@ export const getDeck = async title => {
 
 // saveDeckTitle: take in a single title argument and add it to the decks.
 export const saveDeckTitle = async newTitle => {
-    console.log("passed title is " + newTitle)
+
     let jsonData = await AsyncStorage.getItem(CARD_KEY);
 
     const existingData = JSON.parse(jsonData);
@@ -36,21 +36,18 @@ export const saveDeckTitle = async newTitle => {
             questions: [],
         },
     };
-    console.log("updated is " + Object.values(updatedData[newTitle]))
-    console.log("updated length is " + updatedData[newTitle].questions.length)
+
     await AsyncStorage.setItem(CARD_KEY, JSON.stringify(updatedData));
 }
 
 // addCardToDeck: take in two arguments, title and card, and will add the card to
 // the list of questions for the deck with the associated title.
 export const addCardToDeck = async (title, card) => {
-    
-    let jsonData =  await AsyncStorage.getItem(CARD_KEY)
-  
+
+    let jsonData = await AsyncStorage.getItem(CARD_KEY)
+
     const existingData = JSON.parse(jsonData)
-    console.log("data == " + existingData)
     const deck = existingData[title]
-    console.log("deck == " + Object.values(deck))
     let questions = deck.questions
     questions.push(card)
 
@@ -61,11 +58,10 @@ export const addCardToDeck = async (title, card) => {
             questions,
         }
     }
-    console.log(updatedData)
     AsyncStorage.setItem(CARD_KEY, JSON.stringify(updatedData))
 }
 
-export const wipeData = async() => {
+export const wipeData = async () => {
     await AsyncStorage.removeItem(CARD_KEY)
 }
 
@@ -101,53 +97,53 @@ const defaultData = {
     }
 }
 
-export function clearLocalNotification () {
+export function clearLocalNotification() {
     return AsyncStorage.removeItem(NOTIFICATION_KEY)
-      .then(Notifications.cancelAllScheduledNotificationsAsync)
-  }
-  
-  function createNotification () {
+        .then(Notifications.cancelAllScheduledNotificationsAsync)
+}
+
+function createNotification() {
     return {
-      title: 'Take a quiz!',
-      body: "Don't forget to do your daily quiz",
-      ios: {
-        sound: true,
-      },
-      android: {
-        sound: true,
-        priority: 'high',
-        sticky: false,
-        vibrate: true,
-      }
-    }
-  }
-  
-  export function setLocalNotification () {
-    AsyncStorage.getItem(NOTIFICATION_KEY)
-      .then(JSON.parse)
-      .then((data) => {
-        if (data === null) {
-          Permissions.askAsync(Permissions.NOTIFICATIONS)
-            .then(({ status }) => {
-              if (status === 'granted') {
-                Notifications.cancelAllScheduledNotificationsAsync()
-  
-                let tomorrow = new Date()
-                tomorrow.setDate(tomorrow.getDate() + 1)
-                tomorrow.setHours(20)
-                tomorrow.setMinutes(0)
-  
-                Notifications.scheduleLocalNotificationAsync(
-                  createNotification(),
-                  {
-                    time: tomorrow,
-                    repeat: 'day',
-                  }
-                )
-  
-                AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
-              }
-            })
+        title: 'Take a quiz!',
+        body: "Don't forget to do your daily quiz",
+        ios: {
+            sound: true,
+        },
+        android: {
+            sound: true,
+            priority: 'high',
+            sticky: false,
+            vibrate: true,
         }
-      })
-  }
+    }
+}
+
+export function setLocalNotification() {
+    AsyncStorage.getItem(NOTIFICATION_KEY)
+        .then(JSON.parse)
+        .then((data) => {
+            if (data === null) {
+                Permissions.askAsync(Permissions.NOTIFICATIONS)
+                    .then(({ status }) => {
+                        if (status === 'granted') {
+                            Notifications.cancelAllScheduledNotificationsAsync()
+
+                            let tomorrow = new Date()
+                            tomorrow.setDate(tomorrow.getDate() + 1)
+                            tomorrow.setHours(20)
+                            tomorrow.setMinutes(0)
+
+                            Notifications.scheduleLocalNotificationAsync(
+                                createNotification(),
+                                {
+                                    time: tomorrow,
+                                    repeat: 'day',
+                                }
+                            )
+
+                            AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
+                        }
+                    })
+            }
+        })
+}

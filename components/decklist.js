@@ -11,7 +11,7 @@ class DeckList extends Component {
         bounceValue: new Animated.Value(1),
     }
 
-    
+
     componentDidMount() {
         this.props.navigation.addListener('willFocus', () => this.getDeckList())
         // this removes problem with componentDidUpdate constantly reloading
@@ -24,18 +24,16 @@ class DeckList extends Component {
 
     onClickPressed = (deck) => {
         Animated.sequence([
-            Animated.timing(this.state.bounceValue, { duration: 200, toValue: 1.04}),
-            Animated.spring(this.state.bounceValue, { toValue: 1, friction: 4})
-          ]).start()
-        
-        console.log("Click pressed " + deck.title)
+            Animated.timing(this.state.bounceValue, { duration: 200, toValue: 1.04 }),
+            Animated.spring(this.state.bounceValue, { toValue: 1, friction: 4 })
+        ]).start()
+
         this.props.navigation.navigate('DeckDetail', { deck: deck })
     }
 
 
     displayDecks() {
         const { decks } = this.state
-        console.log(this.state)
 
         if (decks.length < 1) {
             return (

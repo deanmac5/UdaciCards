@@ -18,24 +18,15 @@ class AddCard extends Component {
     }
 
     async saveNewCard(input) {
-        console.log("Save new card pressed")
         // add the new card to the current deck
         const { navigate } = this.props.navigation
         const question = this.state.question
         const answer = this.state.answer
         const card = { question, answer }
-        console.log("Card is " + Object.values(card))
-        console.log("State " + this.state.dTitle)
 
         addCardToDeck(this.state.dTitle, card)
-        console.log("card should have been added")
-        
-        // const deck = await getDeck(this.state.dTitle)
-        const decks =  await getDecks()
-        console.log("all: " + Object.values(decks))
+        const decks = await getDecks()
         const deck = await getDeck(this.state.dTitle)
-        console.log("deck should be: " + Object.values(deck))
-        console.log(deck.questions.length)
         navigate('DeckDetail', { deck: deck })
     }
 
@@ -44,7 +35,7 @@ class AddCard extends Component {
 
         return (
             <View style={styles.container}>
-            
+
                 <View style={styles.inputContainer}>
                     <TextInput
                         style={styles.textInput}
@@ -55,7 +46,7 @@ class AddCard extends Component {
                         })}
                     />
                 </View>
-            
+
                 <View style={styles.inputContainer}>
                     <TextInput
                         style={styles.textInput}

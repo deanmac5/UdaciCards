@@ -19,10 +19,9 @@ class AddDeck extends Component {
 
     async saveNewDeck() {
         const { navigate } = this.props.navigation
-        console.log("new deck created " + this.state.newTitle)
+
         await saveDeckTitle(this.state.newTitle)
         const deck = await getDeck(this.state.newTitle)
-        console.log('added deck is ' + deck)
         this.setState({
             newTitle: ""
         })
@@ -30,11 +29,11 @@ class AddDeck extends Component {
     }
 
     render() {
-        
+
         return (
             <View style={styles.container}>
-                <View style={styles.inputContainer}> 
-                    
+                <View style={styles.inputContainer}>
+
                     <TextInput
                         style={styles.textInput}
                         placeholder="enter new deck title"
