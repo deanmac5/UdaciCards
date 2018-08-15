@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, Button } from 'react-native'
+import { View, Text, Button, Animated } from 'react-native'
 import { red, grey, white } from '../utils/colors'
 import { getDecks } from '../utils/helpers'
 
@@ -7,7 +7,8 @@ import { getDecks } from '../utils/helpers'
 
 class DeckList extends Component {
     state = {
-        decks: []
+        decks: [],
+        bounceValue: new Animated.Value(1),
     }
 
     
@@ -22,6 +23,11 @@ class DeckList extends Component {
     };
 
     onClickPressed = (deck) => {
+        Animated.sequence([
+            Animated.timing(this.state.bounceValue, { duration: 200, toValue: 1.04}),
+            Animated.spring(this.state.bounceValue, { toValue: 1, friction: 4})
+          ]).start()
+        
         console.log("Click pressed " + deck.title)
         this.props.navigation.navigate('DeckDetail', { deck: deck })
     }
